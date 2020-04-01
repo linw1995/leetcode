@@ -44,7 +44,7 @@ int minSubArrayLen(int s, int *nums, int numsSize) {
     return 0;
 
   int begin = 0, end = 1, sum = nums[0], minLen = numsSize + 1;
-  while (begin < end && begin < numsSize) {
+  while (begin < end) {
     LOG("sum(nums[%d:%d])=%d len=%d minlen=%d", begin, end, sum, end - begin,
         minLen);
     if (sum >= s) {
