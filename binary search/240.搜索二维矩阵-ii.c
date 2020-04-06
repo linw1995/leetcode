@@ -54,43 +54,20 @@
 #else
 #define LOG(message, args...)
 #endif
-
-bool _searchMatrix(int **matrix, int rowBegin, int rowEnd, int colBegin,
-                   int colEnd, int target) {
-
-  LOG("rowBegin=%d rowEnd=%d colBegin=%d colEnd=%d", rowBegin, rowEnd, colBegin,
-      colEnd);
-
-  if (rowEnd - rowBegin <= 2 || colEnd - colBegin <= 2) {
-    for (int row = rowBegin; row < rowEnd; ++row) {
-      for (int col = colBegin; col < colEnd; ++col) {
-        if (matrix[row][col] == target)
-          return true;
-      }
-    }
-    return false;
-  }
-
-  int rowMid = (rowBegin + rowEnd) / 2, colMid = (colBegin + colEnd) / 2;
-  if (matrix[rowMid][colMid] > target) {
-    if (_searchMatrix(matrix, rowBegin, rowMid, colBegin, colMid, target)) {
-      return true;
-    }
-  } else if (matrix[rowMid][colMid] < target) {
-    if (_searchMatrix(matrix, rowMid, rowEnd, colMid, colEnd, target)) {
-      return true;
-    }
-  } else {
-    return true;
-  }
-
-  return _searchMatrix(matrix, rowBegin, rowMid, colMid, colEnd, target) ||
-         _searchMatrix(matrix, rowMid, rowEnd, colBegin, colMid, target);
-}
-
 bool searchMatrix(int **matrix, int matrixRowSize, int matrixColSize,
                   int target) {
-  return _searchMatrix(matrix, 0, matrixRowSize, 0, matrixColSize, target);
+  int row = matrixRowSize - 1, col = 0;
+  while (row >= 0 && col < matrixColSize) {
+    LOG("M(%d, %d) = %d", row, col, matrix[row][col]);
+    if (matrix[row][col] > target) {
+      row--;
+    } else if (matrix[row][col] < target) {
+      col++;
+    } else {
+      return true;
+    }
+  }
+  return false;
 }
 
 // @lc code=end
