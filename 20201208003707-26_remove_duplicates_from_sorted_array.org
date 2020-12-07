@@ -1,16 +1,16 @@
-#+title: Fundamental Algorithms
+#+title: 26. Remove Duplicates from Sorted Array
+#+roam_alias:
+#+roam_tags: LeetCode C Array Easy
 
-* Array
+[[https://leetcode.com/problems/remove-duplicates-from-sorted-array/][Perblem Link]]
 
-** [[https://leetcode.com/problems/remove-duplicates-from-sorted-array/][26. Remove Duplicates from Sorted Array]]
-
-*** Description
+* Description
 
 Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
 
 Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
 
-*** Examples
+* Examples
 
 | idx | idx of last new array item | idx of array candidate | array     | length of new array (rv) |
 |-----+----------------------------+------------------------+-----------+--------------------------|
@@ -37,7 +37,7 @@ Do not allocate extra space for another array, you must do this by modifying the
 #+tblfm: $3=@#-1
 #+tblfm: $5=$2+1
 
-*** Anwser
+* Anwser
 
 #+begin_src c
   int removeDuplicates(int* nums, int numsSize){
@@ -54,3 +54,4 @@ Do not allocate extra space for another array, you must do this by modifying the
     return idx_of_last_new_array_item + 1;
   }
 #+end_src
+

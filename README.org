@@ -1,1 +1,4 @@
-#+title: Leetcode solutions
+#+title: Leetcode Solutions
+#+ROAM_TAGS: "LeetCode"
+
+- [[file:20201208004824-fundamental_algorithm.org][Fundamental Algorithms]]
