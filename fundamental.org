@@ -1,0 +1,56 @@
+#+title: Fundamental Algorithms
+
+* Array
+
+** [[https://leetcode.com/problems/remove-duplicates-from-sorted-array/][26. Remove Duplicates from Sorted Array]]
+
+*** Description
+
+Given a sorted array nums, remove the duplicates in-place such that each element appears only once and returns the new length.
+
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+*** Examples
+
+| idx | idx of last new array item | idx of array candidate | array     | length of new array (rv) |
+|-----+----------------------------+------------------------+-----------+--------------------------|
+|   0 |                          0 |                      1 | [1, 1, 2] |                        1 |
+|   1 |                          0 |                      2 | [1, 2, 2] |                        1 |
+|   2 |                          1 |                      3 | [1, 2, 2] |                        2 |
+#+tblfm: $1=@#-2
+#+tblfm: $3=@#-1
+#+tblfm: $5=$2+1
+
+
+| idx | idx of last new array item | idx of array candidate | array                          | length of new array (rv) |
+|-----+----------------------------+------------------------+--------------------------------+--------------------------|
+|   0 |                          0 |                      1 | [0, 0, 1, 1, 1, 2, 2, 3, 3, 4] |                        1 |
+|   1 |                          1 |                      2 | [0, 1, 1, 1, 1, 2, 2, 3, 3, 4] |                        2 |
+|   2 |                          1 |                      3 | [0, 1, 1, 1, 1, 2, 2, 3, 3, 4] |                        2 |
+|   3 |                          1 |                      4 | [0, 1, 1, 1, 1, 2, 2, 3, 3, 4] |                        2 |
+|   4 |                          2 |                      5 | [0, 1, 2, 1, 1, 2, 2, 3, 3, 4] |                        3 |
+|   5 |                          2 |                      6 | [0, 1, 2, 1, 1, 2, 2, 3, 3, 4] |                        3 |
+|   6 |                          3 |                      7 | [0, 1, 2, 3, 1, 2, 2, 3, 3, 4] |                        4 |
+|   7 |                          3 |                      8 | [0, 1, 2, 3, 1, 2, 2, 3, 3, 4] |                        4 |
+|   8 |                          4 |                      9 | [0, 1, 2, 3, 4, 2, 2, 3, 3, 4] |                        5 |
+#+tblfm: $1=@#-2
+#+tblfm: $3=@#-1
+#+tblfm: $5=$2+1
+
+*** Anwser
+
+#+begin_src c
+  int removeDuplicates(int* nums, int numsSize){
+    if (numsSize <= 0)
+      return 0;
+
+    int idx_of_last_new_array_item = 0, idx_of_array_candidate = 1;
+    while (idx_of_array_candidate < numsSize) {
+      if (nums[idx_of_last_new_array_item] != nums[idx_of_array_candidate]) {
+        nums[++idx_of_last_new_array_item] = nums[idx_of_array_candidate];
+      }
+      idx_of_array_candidate++;
+    }
+    return idx_of_last_new_array_item + 1;
+  }
+#+end_src
