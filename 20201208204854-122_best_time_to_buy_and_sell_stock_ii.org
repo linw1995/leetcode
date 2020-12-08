@@ -1,0 +1,81 @@
+#+title: 122. Best Time to Buy and Sell Stock II
+#+roam_key: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+#+roam_alias:
+#+roam_tags: "LeetCode" C "Array" "Easy"
+
+[[https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/][Problem Link]]
+
+* Description
+
+Say you have an array prices for which the ith element is the price of a given stock on day i.
+
+Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
+
+Note: You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).
+
+* Examples
+
+** Example 1
+
+| input  | [7, 1, 5, 3, 6, 4] |
+| output |                  7 |
+
+**Explanation**
+
+Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+
+| day | buy price | sell price | profit | max profit |
+|-----+-----------+------------+--------+------------|
+|   1 |           |            |      0 |          0 |
+|   2 |         1 |          1 |      0 |          0 |
+|   3 |         1 |          5 |      4 |          4 |
+|   4 |         3 |          3 |      0 |          4 |
+|   5 |         3 |          6 |      3 |          7 |
+#+tblfm: $4=$3-$2
+#+tblfm: $5=vsum(@I$4..@#$4)
+
+
+** Example 2
+
+| input | [1, 2, 3, 4, 5] |
+| ouput |               4 |
+
+**Explanation**
+
+Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are
+engaging multiple transactions at the same time. You must sell before buying again.
+
+| day | buy price | sell price | profit | max profit |
+|-----+-----------+------------+--------+------------|
+|   1 |         1 |          1 |      0 |          0 |
+|   5 |         1 |          5 |      4 |          4 |
+#+tblfm: $4=$3-$2
+#+tblfm: $5=vsum(@I$4..@#$4)
+
+* Anwser
+
+#+begin_src c
+  int maxProfit(int* prices, int pricesSize){
+    if (pricesSize <= 1)
+      return 0;
+
+    int idx_of_buy_price = 0, idx_of_sell_price = 0, max_profit = 0;
+    while (idx_of_sell_price + 1 < pricesSize) {
+      if (prices[idx_of_sell_price] > prices[idx_of_sell_price + 1]) {
+        int profit = prices[idx_of_sell_price] - prices[idx_of_buy_price];
+        if (profit > 0) {
+          max_profit += profit;
+        }
+        idx_of_buy_price = idx_of_sell_price + 1;
+      }
+      idx_of_sell_price ++;
+    }
+    int profit = prices[idx_of_sell_price] - prices[idx_of_buy_price];
+    if (profit > 0) {
+      max_profit += profit;
+    }
+    return max_profit;
+  }
+#+end_src
