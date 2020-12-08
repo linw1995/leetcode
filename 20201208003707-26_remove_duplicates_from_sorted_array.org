@@ -2,7 +2,7 @@
 #+roam_alias:
 #+roam_tags: LeetCode C Array Easy
 
-[[https://leetcode.com/problems/remove-duplicates-from-sorted-array/][Perblem Link]]
+[[https://leetcode.com/problems/remove-duplicates-from-sorted-array/][Problem Link]]
 
 * Description
 
