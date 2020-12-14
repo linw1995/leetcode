@@ -2,3 +2,8 @@
 #+ROAM_TAGS: "LeetCode"
 
 - [[file:20201208004824-fundamental_algorithm.org][Fundamental Algorithms]]
+
+* Difficulty
+
+- [[file:20201208004521-easy.org][Easy]]
+- [[file:20201209205748-medium.org][Medium]]
