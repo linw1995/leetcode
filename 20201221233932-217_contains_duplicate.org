@@ -1,0 +1,107 @@
+#+title: 217. Contains Duplicate
+#+roam_key: https://leetcode.com/problems/contains-duplicate/
+#+roam_alias:
+#+roam_tags: "LeetCode" C "Array" "Easy"
+#+STARTUP: latexpreview
+
+[[https://leetcode.com/problems/contains-duplicate/][Problem Link]]
+
+* Description
+
+Given an array of integers, find if the array contains any duplicates.
+
+Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.
+
+* Example
+
+** Example 1
+
+- *Input*: [1,2,3,1]
+- *Output*: true
+
+** Example 2
+
+- *Input*: [1,2,3,4]
+- *Output*: false
+
+** Example 3
+
+- *Input*: [1,1,1,3,3,4,3,2,4,2]
+- *Output*: true
+
+* Solution
+
+** Approach 1 -- Brute Force
+
+#+begin_src C
+  bool containsDuplicate(int* nums, int numsSize){
+    for (int i = 0; i < numsSize; ++i) {
+      for (int j = i + 1; j < numsSize; ++j) {
+        if (nums[i] == nums[j])
+          return true;
+      }
+    }
+    return false;
+  }
+#+end_src
+
+*Complexity Analysis*
+
+- Time complexity: $\mathcal{O}(n^2)$
+- Space complexity: $\mathcal{O}(1)$
+
+** Approach 2 -- Hash Function
+
+#+header: :tangle leetcode-217-solution-2.c
+#+begin_src C :main no :flags -I./vendor/uthash/include
+  #include "stdbool.h"
+  #include "uthash.h"
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  typedef struct {
+    int id;
+    UT_hash_handle hh;
+  } hashEntry;
+
+  bool setHas(hashEntry *set, int num) {
+    hashEntry *s = NULL;
+    HASH_FIND_INT(set, &num, s);
+    return s != NULL ? true : false;
+  }
+
+  void setAdd(hashEntry **set, int num) {
+    hashEntry *s = malloc(sizeof(hashEntry));
+    s->id = num;
+    HASH_ADD_INT(*set, id, s);
+  }
+
+  bool containsDuplicate(int *nums, int numsSize) {
+    hashEntry *set = NULL;
+    for (int i = 0; i < numsSize; ++i) {
+      if (setHas(set, nums[i])) {
+        return true;
+      }
+      setAdd(&set, nums[i]);
+    }
+    return false;
+  }
+
+  int main() {
+    int nums[] = {1, 2, 3, 4, 5, 1};
+    printf("%d\n", containsDuplicate(nums, 6));
+  }
+
+#+end_src
+
+#+RESULTS:
+: 1
+
+*Complexity Analysis*
+
+- Time complexity: $\mathcal{O}(n)$
+- Space complexity: $\mathcal{O}(n)$
+
+** Appoarch 3 -- Sort and find
+
+pass

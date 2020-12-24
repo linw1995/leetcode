@@ -2,6 +2,7 @@
 #+roam_key: https://leetcode.com/problems/rotate-array/
 #+roam_alias:
 #+roam_tags: "LeetCode" C "Array" Medium
+#+STARTUP: latexpreview
 
 [[https://leetcode.com/problems/rotate-array/][Problem Link]]
 
@@ -35,7 +36,6 @@ Could you do it in-place with O(1) extra space?
 |   5 |        1 | 2 | 6 | 7 | 1 | 5 | 3 | 4 |
 |   6 |        4 | 5 | 6 | 7 | 1 | 2 | 3 | 4 |
 #+tblfm: @1$3..@1$>=$#-3::@<<$1..@>$1=@#-2
-
 
 ** Example 2
 
