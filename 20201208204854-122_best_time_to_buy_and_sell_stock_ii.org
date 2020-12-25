@@ -1,7 +1,7 @@
 #+title: 122. Best Time to Buy and Sell Stock II
 #+roam_key: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
 #+roam_alias:
-#+roam_tags: "LeetCode" C "Array" "Easy"
+#+roam_tags: "LeetCode" 
 
 [[https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/][Problem Link]]
 

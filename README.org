@@ -1,5 +1,5 @@
-#+title: Leetcode Solutions
-#+ROAM_TAGS: "LeetCode"
+#+title: LeetCode Solutions
+#+roam_alias: LeetCode
 
 - [[file:20201208004824-fundamental_algorithm.org][Fundamental Algorithms]]
 

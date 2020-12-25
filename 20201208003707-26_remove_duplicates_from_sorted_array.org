@@ -1,6 +1,6 @@
 #+title: 26. Remove Duplicates from Sorted Array
 #+roam_alias:
-#+roam_tags: LeetCode C Array Easy
+#+roam_tags: LeetCode
 
 [[https://leetcode.com/problems/remove-duplicates-from-sorted-array/][Problem Link]]
 

@@ -1,0 +1,215 @@
+#+title: 136. Single Number
+#+roam_key: https://leetcode.com/problems/single-number/
+#+roam_alias:
+#+roam_tags: "LeetCode"
+#+startup: latexpreview
+
+[[https://leetcode.com/problems/single-number/][Problem Link]]
+
+* Description
+
+Given a *non-empty* array of integers =nums=, every element appears twice except for one. Find that single one.
+
+*Follow up*: Could you implement a solution with a linear runtime complexity and without using extra memory?
+
+* Examples
+
+** Example 1
+
+- *Input*: nums = [2,2,1]
+- *Output*: 1
+
+** Example 2
+
+- *Input*: nums = [4,1,2,1,2]
+- *Output*: 4
+
+** Example 3
+
+- *Input*: nums = [1]
+- *Output*: 1
+
+* Constraints
+
+- $1 <=$ nums.length $<= 3 * 10^4$
+- $-3 * 10^4 <=$ nums[i] $<= 3 * 10^4$
+  Each element in the array appears twice except for one element which appears only once.
+
+* Solutions
+
+** Appoarch 1 - Brute Force
+
+#+begin_src C
+  int singleNumber(int* nums, int numsSize){
+    for (int i = 0; i < numsSize; ++i) {
+      int maybeSingle = 1;
+      for (int j = 0; j < numsSize; ++j) {
+        if (nums[i] == nums[j] && i != j) {
+          maybeSingle = 0;
+          break;
+        }
+      }
+      if (maybeSingle == 1) {
+        return nums[i];
+      }
+    }
+    return nums[0];
+  }
+#+end_src
+
+*Complexity Analysis*
+
+- Time complexity: $\mathcal{O}(n^2)$
+- Space complexity: $\mathcal{O}(1)$
+
+** Appoarch 2 - [[file:20201225210113-hash_table.org][Hash Table]]
+
+Implement a Counter base on hash table.
+
+#+header: :tangle leetcode-136-solution-2.c
+#+begin_src C :main no :flags -I./vendor/uthash/include
+  #include "uthash.h"
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  typedef struct {
+    int id;
+    int count;
+    UT_hash_handle hh;
+  } hashEntry;
+
+  int setCount(hashEntry *set, int num) {
+    hashEntry *s = NULL;
+    HASH_FIND_INT(set, &num, s);
+    if (s == NULL)
+      return 0;
+    return s->count;
+  }
+
+  int setInc(hashEntry **set, int num) {
+    hashEntry *s = NULL;
+    HASH_FIND_INT(*set, &num, s);
+    if (s == NULL) {
+      s = malloc(sizeof(hashEntry));
+      s->id = num;
+      s->count = 0;
+      HASH_ADD_INT(*set, id, s);
+    }
+    return ++ s->count;
+  }
+
+  int singleNumber(int *nums, int numsSize) {
+    hashEntry *set = NULL;
+    for (int i = 0; i < numsSize; ++i) {
+      setInc(&set, nums[i]);
+    }
+
+    for (int i = 0; i < numsSize; ++i) {
+      if (setCount(set, nums[i]) == 1) {
+        return nums[i];
+      }
+    }
+
+    return nums[0];
+  }
+
+  int main() {
+    int nums[] = {1, 1, 3, 3, 4, 5, 5};
+    printf("%d\n", singleNumber(nums, 7));
+  }
+
+#+end_src
+
+#+RESULTS:
+: 4
+
+*Complexity Analysis*
+
+- Time complexity: $\mathcal{O}(n)$
+- Space complexity: $\mathcal{O}(n)$
+
+** Appoarch 3 - Bit Manipulation
+:PROPERTIES:
+:ID:       1EA73F29-F6FC-4CC4-99B1-C03BFDB8BD82
+:END:
+
+Use *XOR* operation.
+
+#+begin_src C
+  int singleNumber(int* nums, int numsSize){
+    int ans = nums[0];
+    for(int i = 1; i < numsSize; ++i) {
+      ans ^= nums[i];
+    }
+    return ans;
+  }
+#+end_src
+
+*Complexity Analysis*
+
+- Time complexity: $\mathcal{O}(n)$
+- Space complexity: $\mathcal{O}(1)$
+
+** Appoarch 4 - Sort and find
+
+pass
+
+** Appoarch 5 - Math ([[file:20201225210113-hash_table.org][Hash Table]])
+
+$2*(a+b+c)-(a+a+b+b+c)=c$
+
+#+header: :tangle leetcode-136-solution-5.c
+#+begin_src C :main no :flags -I./vendor/uthash/include
+  #include "stdbool.h"
+  #include "uthash.h"
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  typedef struct {
+    int id;
+    UT_hash_handle hh;
+  } hashEntry;
+
+  bool setHas(hashEntry *set, int num) {
+    hashEntry *s = NULL;
+    HASH_FIND_INT(set, &num, s);
+    return s ? true : false;
+  }
+
+  void setAdd(hashEntry **set, int num) {
+    hashEntry *s = malloc(sizeof(hashEntry));
+    s->id = num;
+    HASH_ADD_INT(*set, id, s);
+  }
+
+  int singleNumber(int *nums, int numsSize) {
+    hashEntry *set = NULL;
+    int setSum = 0;
+    int total = 0;
+    for (int i = 0; i < numsSize; ++i) {
+      if (setHas(set, nums[i])) {
+        setSum += nums[i];
+      } else {
+        setAdd(&set, nums[i]);
+      }
+      total += nums[i];
+    }
+
+    return total - 2 * setSum;
+  }
+
+  int main() {
+    int nums[] = {1, 1, 3, 3, 4, 5, 5};
+    printf("%d\n", singleNumber(nums, 7));
+  }
+#+end_src
+
+#+RESULTS:
+: 4
+
+*Complexity Analysis*
+
+- Time complexity: $\mathcal{O}(n)$
+- Space complexity: $\mathcal{O}(n)$
+
+
