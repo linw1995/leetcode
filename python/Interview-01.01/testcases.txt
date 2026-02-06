@@ -1,0 +1,9 @@
+input:
+"leetcode"
+output:
+false
+
+input:
+"abc"
+output:
+true
