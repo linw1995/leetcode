@@ -1,0 +1,14 @@
+input:
+"?zs"
+output:
+"azs"
+
+input:
+"ubv?w"
+output:
+"ubvaw"
+
+input:
+"z?a"
+output:
+"zca"
