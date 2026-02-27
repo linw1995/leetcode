@@ -1,0 +1,5 @@
+input:
+"s3cur1tyC0d3"
+4
+output:
+"r1tyC0d3s3cu"
