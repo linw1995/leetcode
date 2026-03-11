@@ -7,38 +7,33 @@ from leetgo_py import *
 
 # @lc code=begin
 
+from random import randint
+
 
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
-        def merge_sort(begin, end):
-            if end - begin <= 1:
-                return
+        def rand_partition(l: int, r: int):
+            i = randint(l, r)
+            nums[i], nums[r] = nums[r], nums[i]
+            return partition(l, r)
 
-            mid = (end + begin) // 2
-            merge_sort(begin, mid)
-            merge_sort(mid, end)
-            tmp = []
-            i = begin
-            j = mid
-            while True:
-                if i >= mid:
-                    tmp.extend(nums[j:end])
-                    break
-
-                if j >= end:
-                    tmp.extend(nums[i:mid])
-                    break
-
-                if nums[i] < nums[j]:
-                    tmp.append(nums[i])
+        def partition(l: int, r: int) -> int:
+            pivot = nums[r]
+            i = l
+            for j in range(l, r):
+                if nums[j] < pivot:
+                    nums[i], nums[j] = nums[j], nums[i]
                     i += 1
-                else:
-                    tmp.append(nums[j])
-                    j += 1
+            nums[i], nums[r] = nums[r], nums[i]
+            return i
 
-            nums[begin:end] = tmp
+        def quicksort(l: int, r: int):
+            if l < r:
+                p = rand_partition(l, r)
+                quicksort(l, p - 1)
+                quicksort(p + 1, r)
 
-        merge_sort(0, len(nums))
+        quicksort(0, len(nums) - 1)
         return nums
 
 
