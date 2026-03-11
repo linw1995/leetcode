@@ -13,25 +13,8 @@ class Solution:
         if n == 0:
             return 1
 
-        flags = []
-        while n > 0:
-            flags.append(n & 1)
-            n = n >> 1
-
-        ans = 0
-        while flags:
-            flag = flags.pop()
-            if flag:
-                flag = 0
-            else:
-                flag = 1
-
-            ans = ans | flag
-
-            if flags:
-                ans = ans << 1
-
-        return ans
+        mask = (1 << n.bit_length()) - 1
+        return n ^ mask
 
 
 # @lc code=end
