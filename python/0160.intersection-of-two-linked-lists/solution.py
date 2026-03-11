@@ -20,32 +20,11 @@ class Solution:
     def getIntersectionNode(
         self, headA: ListNode, headB: ListNode
     ) -> Optional[ListNode]:
-        cntA = self.getLength(headA)
-        cntB = self.getLength(headB)
-
-        if cntA < cntB:
-            headA, headB = headB, headA
-            cntA, cntB = cntB, cntA
-
-        pa, pb = headA, headB
-        n = cntA - cntB
-        while n > 0:
-            pa = pa.next
-            n -= 1
-
-        while pa != pb:
-            pa = pa.next
-            pb = pb.next
-
-        return pa
-
-    def getLength(self, head: ListNode):
-        cnt = 0
-        p = head
-        while p:
-            p = p.next
-            cnt += 1
-        return cnt
+        a, b = headA, headB
+        while a != b:
+            a = a.next if a else headB
+            b = b.next if b else headA
+        return a
 
 
 # @lc code=end
