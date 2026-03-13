@@ -10,21 +10,24 @@ from leetgo_py import *
 
 class Solution:
     def verifyTreeOrder(self, postorder: List[int]) -> bool:
-        if len(postorder) <= 1:
-            return True
+        def recur(i, j):
+            if i >= j:
+                return True
 
-        head = postorder[-1]
-        for i, n in enumerate(postorder[:-1]):
-            if n > head:
-                left = postorder[:i]
-                right = postorder[i:-1]
-                for num in right:
-                    if num < head:
-                        return False
+            # left tree
+            p = i
+            while postorder[p] < postorder[j]:
+                p += 1
 
-                return self.verifyTreeOrder(left) and self.verifyTreeOrder(right)
+            # m is the start of right tree
+            m = p
 
-        return self.verifyTreeOrder(postorder[:-1])
+            while postorder[p] > postorder[j]:
+                p += 1
+
+            return p == j and recur(i, m - 1) and recur(m, j - 1)
+
+        return recur(0, len(postorder) - 1)
 
 
 # @lc code=end
