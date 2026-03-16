@@ -10,16 +10,19 @@ from leetgo_py import *
 
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        L, R = [1], [1]
+        ans = [1]
         for idx, num in enumerate(nums[:-1]):
-            L.append(L[idx] * num)
+            ans.append(ans[idx] * num)
 
+        size = len(nums)
+        tmp = 1
         for idx, num in enumerate(reversed(nums[1:])):
-            R.append(R[idx] * num)
+            ans[size - idx - 1] *= tmp
+            tmp = tmp * num
 
-        R.reverse()
+        ans[0] *= tmp
 
-        return [l * r for (l, r) in zip(L, R)]
+        return ans
 
 
 # @lc code=end
