@@ -10,10 +10,13 @@ from leetgo_py import *
 
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        s = set(range(1, len(nums) + 1))
+        n = len(nums)
+
         for num in nums:
-            s.discard(num)
-        return sorted(s)
+            idx = (num - 1) % n
+            nums[idx] += n
+
+        return [i + 1 for i, num in enumerate(nums) if num <= n]
 
 
 # @lc code=end
