@@ -16,8 +16,6 @@ class TreeNode:
 
 # @lc code=begin
 
-from collections import deque
-
 
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
