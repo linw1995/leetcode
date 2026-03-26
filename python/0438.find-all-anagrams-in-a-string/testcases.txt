@@ -1,0 +1,11 @@
+input:
+"abab"
+"ab"
+output:
+[0,1,2]
+
+input:
+"baa"
+"aa"
+output:
+[1]
