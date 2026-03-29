@@ -1,0 +1,11 @@
+input:
+"abcd"
+"cdab"
+output:
+true
+
+input:
+"abcd"
+"dacb"
+output:
+false
