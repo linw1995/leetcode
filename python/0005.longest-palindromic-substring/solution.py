@@ -7,38 +7,43 @@ from leetgo_py import *
 
 # @lc code=begin
 
+from functools import cache
+
 
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         n = len(s)
-        ans = ""
 
-        for m in range(n):
-            i = m - 1
-            j = m + 1
-            candidate = s[m]
+        if n < 2:
+            return s
 
-            while i >= 0 and j < n and s[i] == s[j]:
-                candidate = s[i : j + 1]
-                j += 1
-                i -= 1
+        dp = [[False] * n for _ in range(n)]
+        for i in range(n):
+            dp[i][i] = True
 
-            if len(candidate) > len(ans):
-                ans = candidate
+        max_length = 1
+        begin = 0
 
-            i = m - 1
-            j = m
-            candidate = ""
+        for length in range(2, n + 1):
+            for i in range(n):
+                j = length + i - 1
 
-            while i >= 0 and j < n and s[i] == s[j]:
-                candidate = s[i : j + 1]
-                j += 1
-                i -= 1
+                if j >= n:
+                    break
 
-            if len(candidate) > len(ans):
-                ans = candidate
+                if s[i] != s[j]:
+                    dp[i][j] = False
+                else:
+                    if length <= 3:
+                        dp[i][j] = True
+                    else:
+                        dp[i][j] = dp[i + 1][j - 1]
 
-        return ans
+                if dp[i][j] and length > max_length:
+                    max_length = length
+                    begin = i
+
+        return s[begin : begin + max_length]
 
 
 # @lc code=end
