@@ -10,17 +10,16 @@ from leetgo_py import *
 
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = [[]]
 
-        def dfs(nums: List[int]) -> frozenset[frozenset[int]]:
-            ans = set()
+        for num in nums:
+            for i in range(len(ans)):
+                prev = ans[i]
+                new_set = prev[:]
+                new_set.append(num)
+                ans.append(new_set)
 
-            for i in range(len(nums)):
-                ans = ans.union(dfs(nums[:i] + nums[i + 1 :]))
-
-            ans.add(frozenset(nums[:]))
-            return ans
-
-        return list(map(list, dfs(nums)))
+        return ans
 
 
 # @lc code=end
